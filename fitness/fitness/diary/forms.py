@@ -1,5 +1,12 @@
 from django import forms
 from .models import *
+from wtforms.validators import Length, DataRequired
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Username', 
+                          validators=[DataRequired(), Length(min=4, max=20)])
+    password = PasswordField('Password', 
+                            validators=[DataRequired(), Length(min=6)])
 
 class MealForm(forms.ModelForm):
     class Meta:
@@ -24,3 +31,5 @@ class ProgressPhotoForm(forms.ModelForm):
     class Meta:
         model = ProgressPhoto
         fields = ['photo', 'notes']
+
+        
