@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Редактировать тренировку</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            {{ form.date.label(class="form-control-label") }}
+            {{ form.date(class="form-control", type="date") }}
+            {% for error in form.date.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.workout_type.label(class="form-control-label") }}
+            {{ form.workout_type(class="form-control") }}
+            {% for error in form.workout_type.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.duration.label(class="form-control-label") }}
+            {{ form.duration(class="form-control") }}
+            {% for error in form.duration.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.exercises.label(class="form-control-label") }}
+            {{ form.exercises(class="form-control", rows="4") }}
+            {% for error in form.exercises.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+        <a href="{{ url_for('diary') }}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

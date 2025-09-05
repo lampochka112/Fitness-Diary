@@ -32,4 +32,18 @@ class ProgressPhotoForm(forms.ModelForm):
         model = ProgressPhoto
         fields = ['photo', 'notes']
 
+class EditWorkoutForm(FlaskForm):
+    date = DateField('Дата тренировки', validators=[DataRequired()])
+    workout_type = StringField('Тип тренировки', validators=[DataRequired()])
+    duration = IntegerField('Длительность (мин)', validators=[DataRequired()])
+    exercises = TextAreaField('Упражнения и подходы', validators=[DataRequired()])
+    submit = SubmitField('Сохранить изменения')
         
+class EditNutritionForm(FlaskForm):
+    date = DateField('Дата', validators=[DataRequired()])
+    meal = StringField('Прием пищи/Блюдо', validators=[DataRequired()])
+    calories = IntegerField('Калории', validators=[DataRequired()])
+    protein = IntegerField('Белки (г)', validators=[DataRequired()])
+    fat = IntegerField('Жиры (г)', validators=[DataRequired()])
+    carbs = IntegerField('Углеводы (г)', validators=[DataRequired()])
+    submit = SubmitField('Сохранить изменения')
