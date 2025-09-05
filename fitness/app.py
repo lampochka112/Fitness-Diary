@@ -1,18 +1,17 @@
-from fitness_diary import create_appfrom datetime import datetime
-from forms import EditWorkoutForm, EditNutritionForm  # Добавим импорт
-
+from flask import render_template, flash, redirect, url_for, request, abort
+from flask_login import login_required, current_user
+from fitness_diary import create_app, db
+from models import Workout, Nutrition
+from forms import EditWorkoutForm, EditNutritionForm
+from datetime import datetime
 
 app = create_app()
-
-if __name__ == '__main__':
-    app.run(debug=True)
 
 @app.route('/edit_workout/<int:workout_id>', methods=['GET', 'POST'])
 @login_required
 def edit_workout(workout_id):
     workout = Workout.query.get_or_404(workout_id)
     
-    # Проверяем, что пользователь редактирует свою запись
     if workout.user_id != current_user.id:
         abort(403)
     
@@ -28,7 +27,6 @@ def edit_workout(workout_id):
         flash('Тренировка успешно обновлена!', 'success')
         return redirect(url_for('diary'))
     
-    # Заполняем форму текущими данными
     elif request.method == 'GET':
         form.date.data = workout.date
         form.workout_type.data = workout.workout_type
@@ -42,7 +40,6 @@ def edit_workout(workout_id):
 def edit_nutrition(nutrition_id):
     nutrition = Nutrition.query.get_or_404(nutrition_id)
     
-    # Проверяем, что пользователь редактирует свою запись
     if nutrition.user_id != current_user.id:
         abort(403)
     
@@ -60,7 +57,6 @@ def edit_nutrition(nutrition_id):
         flash('Запись о питании успешно обновлена!', 'success')
         return redirect(url_for('diary'))
     
-    # Заполняем форму текущими данными
     elif request.method == 'GET':
         form.date.data = nutrition.date
         form.meal.data = nutrition.meal
@@ -70,8 +66,6 @@ def edit_nutrition(nutrition_id):
         form.carbs.data = nutrition.carbs
     
     return render_template('edit_nutrition.html', form=form, nutrition=nutrition)
-app = create_app()
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
