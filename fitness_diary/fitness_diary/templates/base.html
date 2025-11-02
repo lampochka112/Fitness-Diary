@@ -1,29 +1,18 @@
-
+<!-- 
 <!DOCTYPE html>
 <html lang="ru" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness Diary - Твой персональный трекер</title>
-    
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto+Flex:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
-    
-    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="bg-gradient-dark">
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient border-bottom border-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient border-bottom border-primary">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{{ url_for('diary') }}">
                 <i class="fas fa-dumbbell me-2 text-warning"></i>
@@ -86,7 +75,6 @@
         </div>
     </nav>
 
-    <!-- Flash Messages -->
     <div class="container mt-3">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -101,12 +89,10 @@
         {% endwith %}
     </div>
 
-    <!-- Main Content -->
     <main class="container py-4">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
     <footer class="bg-dark text-light py-4 mt-5 border-top border-primary">
         <div class="container">
             <div class="row">
@@ -121,17 +107,49 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
     <script>
-        // Initialize animations
+
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
             once: true
         });
     </script>
+</body>
+</html> -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Фитнес дневник{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Фитнес дневник</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'about' %}">О сайте</a></li>
+                <!-- добавьте другие ссылки по необходимости -->
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block main_content %}
+        <h2>Добро пожаловать в ваш фитнес дневник!</h2>
+        <p>Здесь вы можете вести учет своих тренировок и прогресса.</p>
+        {% endblock %}
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Фитнес дневник</p>
+    </footer>
 </body>
 </html>
