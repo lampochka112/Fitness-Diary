@@ -1,31 +1,31 @@
 import os
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key-here'
+SECRET_KEY = 'django-insecure-your-secret-key-here-12345'
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
-
-    'diary',
-    'users', 
-    'news',
-    'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'diary',
-    'users',
-    'news',
-    'django_filters',
+    
+    # Third-party apps
     'crispy_forms',
+    'crispy_bootstrap5',
+    'django_filters',
+    
+    # Local apps
+    'accounts.apps.AccountsConfig',
+    'diary.apps.DiaryConfig',
+    'news.apps.NewsConfig',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +56,8 @@ TEMPLATES = [
     },
 ]
 
+WSGI_APPLICATION = 'fitness_diary.wsgi.application'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -63,24 +65,42 @@ DATABASES = {
     }
 }
 
-STATIC_URL = '/static/'
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+LANGUAGE_CODE = 'ru-ru'
+TIME_ZONE = 'Europe/Moscow'
+USE_I18N = True
+USE_TZ = True
+
+STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Настройки для внешнего API (Nutritionix)
-NUTRITIONIX_APP_ID = 'your-app-id'
-NUTRITIONIX_APP_KEY = 'your-app-key'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Настройки email
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your-email@gmail.com'
-EMAIL_HOST_PASSWORD = 'your-password'
+# Crispy Forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-# Настройки Celery
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+# Authentication
+LOGIN_REDIRECT_URL = 'diary:index'
+LOGOUT_REDIRECT_URL = 'accounts:login'
+LOGIN_URL = 'accounts:login'
+
+# Custom User Model
+AUTH_USER_MODEL = 'accounts.CustomUser'

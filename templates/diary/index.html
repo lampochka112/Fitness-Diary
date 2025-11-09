@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - Фитнес Дневник{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>Добро пожаловать в Фитнес Дневник!</h1>
+        <p>Отслеживайте ваши тренировки, питание и прогресс.</p>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Тренировки</h5>
+                        <p class="card-text">Добавляйте и просматривайте ваши тренировки</p>
+                        <a href="{% url 'diary:workout_list' %}" class="btn btn-primary">Мои тренировки</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Питание</h5>
+                        <p class="card-text">Контролируйте ваше питание и калории</p>
+                        <a href="{% url 'diary:meal_list' %}" class="btn btn-primary">Мое питание</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Вес</h5>
+                        <p class="card-text">Отслеживайте изменения веса</p>
+                        <a href="{% url 'diary:weight_tracking' %}" class="btn btn-primary">Мой вес</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
