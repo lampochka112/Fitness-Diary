@@ -12,6 +12,3 @@ Flask-Login==0.6.2
 Flask-SQLAlchemy==3.0.5
 Werkzeug==2.3.7
 gunicorn==21.2.0
-Flask8==20.2.0
-
-# команду писать через pip install requirements.txt
